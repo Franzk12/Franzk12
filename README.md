@@ -1,16 +1,11 @@
-## Hi there 👋
+<p align="center">
+  <a href="https://frazk.lol">
+    <img src="https://gitascii.com/api/Franzk12" alt="Franzk — Full-Stack Developer" width="800" />
+  </a>
+</p>
 
-<!--
-**Franzk12/Franzk12** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+<p align="center">
+  <a href="https://frazk.lol">Portfolio</a> ·
+  <a href="mailto:franzk.dev@gmail.com">Email</a> ·
+  <a href="https://www.linkedin.com/in/fran-zk-a13001390/">LinkedIn</a>
+</p>
