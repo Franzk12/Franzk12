@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://frazk.lol">
-    <img src="https://gitascii.com/api/Franzk12" alt="Franzk — Full-Stack Developer" width="800" />
+    <img src="https://gitascii.com/api/Franzk12?v=1" alt="Franzk — Full-Stack Developer" width="800" />
   </a>
 </p>
 
