@@ -1,0 +1,50 @@
+name: Update profile SVG
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'   # lunes 06:00 UTC (~03:00 ARG)
+  workflow_dispatch:        # permite correrlo a mano
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-profile
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Traer SVG fresco de GitAscii (con reintentos + validación)
+        run: |
+          set -e
+          url="https://gitascii.com/api/Franzk12"
+          ok=0
+          for i in 1 2 3 4 5; do
+            code=$(curl -sS -L --max-time 60 -o profile.new.svg -w '%{http_code}' "$url" || echo 000)
+            size=$(wc -c < profile.new.svg 2>/dev/null || echo 0)
+            if [ "$code" = "200" ] && head -c 500 profile.new.svg | grep -qi '<svg' && [ "$size" -gt 10000 ]; then
+              echo "OK: http=$code size=${size}b (intento $i)"; ok=1; break
+            fi
+            echo "Intento $i fallo (http=$code size=${size}b); reintento en 15s..."
+            sleep 15
+          done
+          if [ "$ok" != "1" ]; then
+            echo "::error::No se obtuvo un SVG valido; no se toca profile.svg"; exit 1
+          fi
+          mv profile.new.svg profile.svg
+
+      - name: Commit si cambio
+        run: |
+          if git diff --quiet -- profile.svg; then
+            echo "Sin cambios; nada que commitear."; exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add profile.svg
+          git commit -m "chore: refrescar perfil GitAscii (auto)"
+          git push
