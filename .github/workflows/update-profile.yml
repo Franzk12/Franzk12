@@ -24,7 +24,7 @@ jobs:
           set -e
           url="https://gitascii.com/api/Franzk12"
           ok=0
-          for i in 1 2 3 4 5; do
+          for i in $(seq 1 8); do
             code=$(curl -sS -L --max-time 60 -o profile.new.svg -w '%{http_code}' "$url" || echo 000)
             size=$(wc -c < profile.new.svg 2>/dev/null || echo 0)
             if [ "$code" = "200" ] && head -c 500 profile.new.svg | grep -qi '<svg' && [ "$size" -gt 10000 ]; then
